@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<div>
+    <br />
+</div>
+<div class="row" ng-view>
+    @{ 
+        if(!Request.IsAuthenticated)
+        {
+            <div>
+                <h4>
+                    Please login to view inventory data.
+                </h4>
+            </div>
+        }
+    }
+</div>

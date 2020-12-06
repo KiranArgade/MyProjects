@@ -1,0 +1,60 @@
+﻿<div id="add" aria-labelledby="add" aria-hidden="true">
+    <form class="form-horizontal" name="addform" id="add-form">
+        <h4>Add inventory item</h4>
+        <div class="form-group">
+            <label for="add-name" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="add-name" name="Name" placeholder="Name" ng-model="Name" ng-minlength="3" ng-maxlength="50" required>
+                <p ng-if="!addform.Name.$valid" style="color:red">
+                    <span>Name is required!</span><br />
+                    <span>Length of Name must be between 3 and 50.</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="add-Price" class="col-sm-2 control-label">Price</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="add-Price" name="Price" placeholder="Price" ng-model="Price" required>
+                <p ng-if="!addform.Price.$valid" style="color:red">
+                    <span>Price is required!</span><br />
+                    <span>Price must be a number.</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="add-quantity" class="col-sm-2 control-label">Quantity</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="add-quantity" name="Quantity" placeholder="Quantity" ng-model="Quantity" required>
+                <p ng-if="!addform.Quantity.$valid" style="color:red">
+                    <span>Quantity is required!</span><br />
+                    <span>Quantity must be a number.</span>
+                </p>
+            </div>
+        </div>
+
+        <input type="hidden" class="form-control" id="add-createdDate" name="CreatedDate"
+               data-date-format="MM-DD-YYYY" placeholder="MM-DD-YYYY" ng-model="CreatedDate">
+
+        <button type="button" class="btn btn-default" ng-click="Close()">Cancel</button>
+        <button type="submit" class="btn btn-primary" ng-click="addform.$valid && Add()">Save changes</button>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#add-Price').keypress(validateNumber);
+    });
+
+    function validateNumber(event) {
+        var key = window.event ? event.keyCode : event.which;
+        if (event.keyCode === 8 || event.keyCode === 46) {
+            return true;
+        } else if (key < 48 || key > 57) {
+            return false;
+        } else {
+            return true;
+        }
+    };
+</script>

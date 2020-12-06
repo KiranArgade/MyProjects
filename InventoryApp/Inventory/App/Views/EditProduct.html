@@ -1,0 +1,60 @@
+﻿<div id="edit" aria-labelledby="edit" aria-hidden="true">
+    <form class="form-horizontal" name="editform" id="edit-form">
+        <h4>Edit inventory item</h4>
+        <div class="form-group">
+            <label for="edit-name" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="edit-name" name="Name" placeholder="Name" ng-model="Name" ng-minlength="3" ng-maxlength="50" required>
+                <p ng-if="!editform.Name.$valid" style="color:red">
+                    <span>Name is required!</span><br />
+                    <span>Length of Name must be between 3 and 50.</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="edit-Price" class="col-sm-2 control-label">Price</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="edit-Price" name="Price" placeholder="Price" ng-model="Price" required>
+                <p ng-if="!editform.Price.$valid" style="color:red">
+                    <span>Price is required!</span><br />
+                    <span>Price must be a number.</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="edit-quantity" class="col-sm-2 control-label">Quantity</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="edit-quantity" name="Quantity" placeholder="Quantity" ng-model="Quantity" required>
+                <p ng-if="!editform.Quantity.$valid" style="color:red">
+                    <span>Quantity is required!</span><br />
+                    <span>Quantity must be a number.</span>
+                </p>
+            </div>
+        </div>
+
+        <input type="hidden" class="form-control" id="edit-createdDate" name="CreatedDate"
+               data-date-format="MM-DD-YYYY" placeholder="MM-DD-YYYY" ng-model="CreatedDate">
+
+        <button type="button" class="btn btn-default" ng-click="Close()">Cancel</button>
+        <button type="submit" class="btn btn-primary" ng-click="editform.$valid && Update()">Update</button>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#edit-Price').keypress(validateNumber);
+    });
+
+    function validateNumber(event) {
+        var key = window.event ? event.keyCode : event.which;
+        if (event.keyCode === 8 || event.keyCode === 46) {
+            return true;
+        } else if (key < 48 || key > 57) {
+            return false;
+        } else {
+            return true;
+        }
+    };
+</script>

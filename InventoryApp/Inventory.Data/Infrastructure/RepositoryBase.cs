@@ -9,29 +9,15 @@ namespace ProductReview.Data.Infrastructure
 {
     public abstract class RepositoryBase<T> where T : class
     {
-        #region Properties
         private InventoryEntities dataContext;
         private readonly IDbSet<T> dbSet;
 
-        protected IDbFactory DbFactory
+        protected RepositoryBase(InventoryEntities dc)
         {
-            get;
-            private set;
+            dataContext = dc;
+            dbSet = dataContext.Set<T>();
         }
 
-        protected InventoryEntities DbContext
-        {
-            get { return dataContext ?? (dataContext = DbFactory.Init()); }
-        }
-        #endregion
-
-        protected RepositoryBase(IDbFactory dbFactory)
-        {
-            DbFactory = dbFactory;
-            dbSet = DbContext.Set<T>();
-        }
-
-        #region Implementation
         public virtual void Add(T entity)
         {
             dbSet.Add(entity);
@@ -74,7 +60,5 @@ namespace ProductReview.Data.Infrastructure
         {
             return dbSet.Where(where).FirstOrDefault<T>();
         }
-
-        #endregion
     }
 }

@@ -1,44 +1,40 @@
 ﻿using Inventory.Data.Infrastructure;
 using Inventory.Models;
-using ProductReview.Data.Repositories;
 using System.Collections.Generic;
 
 namespace Inventory.Service
 {
     public class ProductService: IProductService
     {
-        private readonly IProductRepository productRepository;
         private readonly IUnitOfWork unitOfWork;
 
-        public ProductService(IProductRepository productRepository,
-            IUnitOfWork unitOfWork)
+        public ProductService(IUnitOfWork unitOfWork)
         {
-            this.productRepository = productRepository;
             this.unitOfWork = unitOfWork;
         }
         public void CreateProduct(Product product)
         {
-            productRepository.Add(product);
+            unitOfWork.ProductRepository.Add(product);
         }
 
         public void UpdateProduct(Product product)
         {
-            productRepository.Update(product);
+            unitOfWork.ProductRepository.Update(product);
         }
 
         public void DeleteProduct(int id)
         {
-            productRepository.Delete(GetProduct(id));
+            unitOfWork.ProductRepository.Delete(GetProduct(id));
         }
 
         public Product GetProduct(int id)
         {
-            return productRepository.GetById(id);
+            return unitOfWork.ProductRepository.GetById(id);
         }
 
         public IEnumerable<Product> GetProducts()
         {
-            return productRepository.GetAll();
+            return unitOfWork.ProductRepository.GetAll();
         }
 
         public void SaveProduct()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductReview.Data.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Inventory.Data.Infrastructure
 {
     public interface IUnitOfWork
     {
+        IProductRepository ProductRepository { get; }
         void Commit();
     }
 }

@@ -1,24 +1,23 @@
 ﻿using ProductReview.Data.Infrastructure;
+using ProductReview.Data.Repositories;
+using System.Data.Entity;
 
 namespace Inventory.Data.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly IDbFactory dbFactory;
         private InventoryEntities dbContext;
 
-        public UnitOfWork(IDbFactory dbFactory)
+        public UnitOfWork()
         {
-            this.dbFactory = dbFactory;
+            dbContext = new InventoryEntities();
         }
 
-        public InventoryEntities DbConext
-        {
-            get { return dbContext ?? (dbContext = dbFactory.Init()); }
-        }
+        public IProductRepository ProductRepository => new ProductRepository(dbContext);
+
         public void Commit()
         {
-            DbConext.Commit();
+            dbContext.Commit();
         }
     }
 }
